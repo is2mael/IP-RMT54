@@ -21,13 +21,12 @@ exports.postFavorite = async (req, res, next) => {
     }
 };
 
-
 exports.deleteFav = async (req, res, next) => {
     const { id } = req.params
     try {
         const favorite = await Favorite.findByPk(id)
         if (!favorite) {
-            throw { name: "badRequest", message: "Data not found" }
+            throw { name: "bad request", message: "validation errors" }
         }
 
         await favorite.destroy()

@@ -58,7 +58,11 @@ exports.UserById = async (req, res, next) => {
       where: { id: req.user.id },
       attributes: ["id", "name", "imgUrl"],
     });
-    res.status(200).json(user);
+
+    if (!user) {
+        throw { name: "Not Found", message: "User not found" }
+    }
+    res.status(200).json({ data:user });
   } catch (err) {
     console.log("🚀 ~ exports.UserById= ~ err:", err);
     next(err);
