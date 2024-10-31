@@ -1,8 +1,8 @@
-require('dotenv').config()
+require("dotenv").config();
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const { User } = require("../models");
-const upload = require("../helpers/cloudynary")
+const upload = require("../helpers/cloudynary");
 
 exports.register = async (req, res, next) => {
   const { username, email, password, imgUrl } = req.body;
@@ -60,29 +60,33 @@ exports.UserById = async (req, res, next) => {
     });
 
     if (!user) {
-        throw { name: "Not Found", message: "User not found" }
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({ data:user });
+
+    res.status(200).json({ data: user });
   } catch (err) {
     console.log("🚀 ~ exports.UserById= ~ err:", err);
     next(err);
   }
 };
 
-exports.UpdateUser = async (req, res, next) => {
-  const userId = req.user.id;
+exports.updateUser = async (req, res, next) => {
   try {
+    const userId = req.user.id;
     let user = await User.findByPk(userId);
     if (!user) {
       throw { name: "Not Found", message: "User not found" };
     }
 
+    if (req.file) {
     const uploadResult = await upload(req.file, "User", user, "Random");
     user.imgUrl = uploadResult.secure_url;
-
+    }
     // Save the updated user data
     await user.save();
-    res.status(200).json({ message: `Profile image updated successfully`, user });
+    res
+      .status(200)
+      .json({ message: `Profile image updated successfully`, user });
   } catch (err) {
     console.log("🚀 ~ exports.UpdateUser= ~ err:", err);
     next(err);
