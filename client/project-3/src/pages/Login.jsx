@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { pull } from "../utils/axios";
 import Swal from 'sweetalert2'
 
@@ -94,7 +94,13 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-      </div>&nbsp;
+      </div>
+      <div className="text-center mt-4 text-gray-600 text-sm">
+  <span>Don't have an account? </span>
+  <Link to="/register" className="text-indigo-600 font-semibold hover:text-indigo-800">
+    Sign Up
+  </Link>
+</div>
       {/* Button Group */}
       <div className="mt-6">
         <button

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { pull } from "../utils/axios";
 
@@ -7,7 +7,9 @@ export default function Register() {
   const [username, setUsername] = useState("fufufafa");
   const [email, setEmail] = useState("fufufafa@wowo.com");
   const [password, setPassword] = useState("pelantikan");
-  const [imgUrl, setImgUrl] = useState("https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg");
+  const [imgUrl, setImgUrl] = useState(
+    "https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg"
+  );
   const nav = useNavigate();
 
   const handleRegister = async (e) => {
@@ -23,13 +25,10 @@ export default function Register() {
           password,
           imgUrl,
         },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
       });
 
       //   localStorage.setItem("access_token", response.data.access_token);
-      console.log(response.data.data);
+      console.log(response.data);
 
       nav("/login");
       Swal.fire({
@@ -40,7 +39,7 @@ export default function Register() {
     } catch (error) {
       console.log(error.response.data);
       Swal.fire({
-        title: `Error ${error.response.data.statusCode}!`,
+        title: `Error ${error.response.data.message}!`,
         text: error.response.data.error,
         icon: "error",
         confirmButtonText: "Oke",
@@ -146,7 +145,15 @@ export default function Register() {
             />
           </div>
         </div>
-        &nbsp;
+        <div className="text-center mt-4 text-gray-600 text-sm">
+          <span>Have an account? </span>
+          <Link
+            to="/login"
+            className="text-indigo-600 font-semibold hover:text-indigo-800"
+          >
+            Sign Up
+          </Link>
+        </div>
         <div className="mt-6">
           <button
             type="submit"
