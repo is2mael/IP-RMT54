@@ -19,7 +19,7 @@ exports.register = async (req, res, next) => {
       email: newUser.email,
     });
   } catch (err) {
-    console.log("🚀 ~ exports.register=async ~ error:", error);
+    console.log("🚀 ~ exports.register=async ~ error:", err);
     next(err);
   }
 };
@@ -52,18 +52,30 @@ exports.Login = async (req, res, next) => {
   }
 };
 
-exports.UserById = async (req, res, next) => {
+exports.getAllUser = async (req, res, next) => {
+  try {
+    const user = await User.findAll()
+
+    res.status(200).json({ user})
+  } catch (err) {
+    console.log("🚀 ~ exports.getAllUser= ~ err:", err)
+    next(err)
+  }
+}
+
+exports.userById = async (req, res, next) => {
+  const { id } = req.params
   try {
     const user = await User.findOne({
-      where: { id: req.user.id },
-      attributes: ["id", "name", "imgUrl"],
+      where: { id },
+      attributes: ["id", "username", "imgUrl"],
     });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ data: user });
+    res.status(200).json({ user });
   } catch (err) {
     console.log("🚀 ~ exports.UserById= ~ err:", err);
     next(err);

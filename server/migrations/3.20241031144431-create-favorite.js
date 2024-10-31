@@ -29,6 +29,18 @@ module.exports = {
         onDelete: "cascade",
         onUpdate: "cascade"
       },
+      imgUrl: {
+        type: Sequelize.STRING,
+        allowNull:false
+      },
+      views: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      likes: {
+        type: Sequelize.INTEGER,
+        allowNull:false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

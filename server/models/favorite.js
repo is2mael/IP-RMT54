@@ -13,14 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       Favorite.belongsTo(models.User, {
         foreignKey: "userId"
       })
+
       Favorite.belongsTo(models.Photo, {
         foreignKey: "photoId"
       })
     }
+    
   }
   Favorite.init({
     userId: DataTypes.INTEGER,
-    photoId: DataTypes.INTEGER
+    photoId: DataTypes.INTEGER,
+    imgUrl: DataTypes.STRING,
+    views: DataTypes.INTEGER,
+    likes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Favorite',

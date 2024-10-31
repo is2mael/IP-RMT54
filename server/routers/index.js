@@ -1,5 +1,5 @@
 const { postFavorite, deleteFav, listFav } = require("../controller/favoriteCtrl")
-const { register, Login, UserById, updateUser } = require("../controller/userCtrl")
+const { register, Login, UserById, updateUser, userById, getAllUser } = require("../controller/userCtrl")
 const authentication = require("../middlewares/autentication")
 const authorization = require("../middlewares/authorization")
 const errorHandler = require("../middlewares/errorhandler")
@@ -18,10 +18,12 @@ router.post("/login", Login)
 
 router.use(authentication)
 
+router.get("/user/", getAllUser)
+router.get("/user/:id", userById)
 router.patch("/user/:id/imgUrl", upload.single("file"), updateUser)
-router.post("/favorite", postFavorite)
-router.delete("/favorite", deleteFav)
-router.get("/favotite", listFav)
+router.post("/favorite/:id", postFavorite)
+router.delete("/favorite/:id", deleteFav)
+router.get("/favorites", listFav)
 
 router.use(errorHandler)
 
