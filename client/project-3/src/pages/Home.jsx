@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { pull } from "@/utils/axios";
 
 export default function Home() {
@@ -9,7 +9,8 @@ export default function Home() {
   const [page, setPage] = useState(1); // Untuk melacak halaman saat ini
   const [loading, setLoading] = useState(false); // Status loading
   const nav = useNavigate();
-
+  const { id } = useParams()
+  
   // Function untuk fetch data dengan limit 20 item
   const fetchPhoto = async (page) => {
     setLoading(true);
@@ -37,7 +38,7 @@ export default function Home() {
     try {
         await pull({
         method: "POST",
-        url: `/favorites/${photos.id}`,
+        url: `/favorites/${id}`,
         data: {
             id: photos.id,
             webformatURL: photos.webformatURL,
@@ -97,7 +98,7 @@ export default function Home() {
           <div
             key={index}
             className="mb-4 overflow-hidden rounded-lg cursor-pointer"
-            onClick={() => handleFavorite(item.id)} // Panggil handleFavorite dengan ID foto
+            onClick={() => handleFavorite(item)} // Panggil handleFavorite dengan ID foto
           >
             <img
               src={item.webformatURL}

@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { pull } from "@/utils/axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { jwtDecode } from "jwt-decode";
+
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -29,27 +31,70 @@ export default function App() {
       icon: "success",
     });
   };
+  
+  const fetchUser = async () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) return;
+    
+    // Decode token to get userId
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id; // Sesuaikan dengan nama field di token Anda
+    
+    try {
+      const response = await pull({
+        method: "GET",
+        url: `/user/${userId}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+      
+      console.log(response.data.user);
+      setUser(response.data.user);
+    } catch (error) {
+      console.log("🚀 ~ fetchUser ~ error:", error);
+    }
+  };
 
-//   const fetchUser = async () => {
-//     try {
-//       const response = await pull({
-//         method: "GET",
-//         url: `/user/${userId}`,
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-//         },
-//       });
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
-//       console.log(response.data.user);
-//       setUser(response.data.user);
-//     } catch (error) {
-//       console.log("🚀 ~ fetchUser ~ error:", error);
-//     }
-//   };
+  const updateUserImage = async () => {
+    const token = localStorage.getItem("access_token");
+    const userId = jwt_decode(token).id;
 
-//   useEffect(() => {
-//     fetchUser();
-//   }, []);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await pull({
+        method: "PATCH",
+        url: `/user/${userId}/imgUrl`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: formData,
+      });
+
+      Swal.fire({
+        title: response.data.message,
+        icon: "success",
+      });
+      setUser(response.data.user); // Update user state with new data
+      setModalVisible(false); // Close modal after success
+    } catch (error) {
+      console.log("🚀 ~ updateUserImage ~ error:", error);
+      Swal.fire({
+        title: "Error updating image",
+        icon: "error",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <Navbar>
@@ -66,7 +111,7 @@ export default function App() {
         </NavbarItem>
         <NavbarItem isActive>
           <Link to="/favorite" aria-current="page" color="secondary">
-            Customers
+            Favorites
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -97,13 +142,8 @@ export default function App() {
               </p>
             </DropdownItem>
             <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
             <DropdownItem key="logout" color="danger">
-            <Link onClick={handleLogOut} to="/login">Log Out</Link>
+              <Link onClick={handleLogOut} to="/login">Log Out</Link>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

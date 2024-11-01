@@ -109,11 +109,11 @@ exports.updateUser = async (req, res, next) => {
 
 exports.googleLogin = async (req, res, next) => {
   const client = new OAuth2Client();
-  const { googleToken } = req.body;
+  const { google_token } = req.headers;
   try {
     
       const ticket = await client.verifyIdToken({
-        idToken: googleToken,
+        idToken: google_token,
         audience: process.env.G_CLIENT_ID,
       });
       const payload = ticket.getPayload();

@@ -1,7 +1,8 @@
 const { Favorite } = require("../models");
 
 exports.postFavorite = async (req, res, next) => {
-    const { id, webformatURL, views, likes } = req.body;
+    const { id } = req.params
+    const { webformatURL, views, likes } = req.body;
     const userId = req.user.id
     
     try {
