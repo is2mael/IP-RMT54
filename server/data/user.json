@@ -1,0 +1,14 @@
+[
+    {
+        "username": "Papa Zola",
+        "email": "PapaZola@mail.com",
+        "password": "1234567",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/id/8/88/Papa_Zola.png?20210808032752"
+    },
+    {
+        "username": "Mama Zola",
+        "email": "MamaZola@mail.com",
+        "password": "1234567",
+        "imgUrl": "https://static.wikia.nocookie.net/boboiboy/images/e/ee/Mama_Zila_in_Papa_Pipi_render.png/revision/latest/scale-to-width/360?cb=20201230120656"
+    }
+]
