@@ -66,7 +66,7 @@ export default function App() {
         </NavbarItem>
         <NavbarItem isActive>
           <Link to="/favorite" aria-current="page" color="secondary">
-            Customers
+            Favorites
           </Link>
         </NavbarItem>
         <NavbarItem>

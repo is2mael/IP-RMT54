@@ -97,7 +97,7 @@ export default function Home() {
           <div
             key={index}
             className="mb-4 overflow-hidden rounded-lg cursor-pointer"
-            onClick={() => handleFavorite(item.id)} // Panggil handleFavorite dengan ID foto
+            onClick={() => handleFavorite(item)} // Panggil handleFavorite dengan ID foto
           >
             <img
               src={item.webformatURL}
