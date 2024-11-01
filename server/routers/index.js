@@ -1,7 +1,6 @@
 const { postFavorite, deleteFav, listFav } = require("../controller/favoriteCtrl")
-const { register, Login, UserById, updateUser, userById, getAllUser } = require("../controller/userCtrl")
+const { register, Login, updateUser, userById, getAllUser, googleLogin } = require("../controller/userCtrl")
 const authentication = require("../middlewares/autentication")
-const authorization = require("../middlewares/authorization")
 const errorHandler = require("../middlewares/errorhandler")
 const multer  = require('multer')
 const storage = multer.memoryStorage()
@@ -15,6 +14,7 @@ router.get("/", (req, res) => {
 
 router.post("/register", register)
 router.post("/login", Login)
+router.post("/google-login", googleLogin);
 
 router.use(authentication)
 

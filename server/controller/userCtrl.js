@@ -1,8 +1,10 @@
-require("dotenv").config();
-const { comparePassword } = require("../helpers/bcrypt");
-const { generateToken } = require("../helpers/jwt");
+// require("dotenv").config();
+const { comparePassword, encrypt } = require("../helpers/bcrypt");
 const { User } = require("../models");
 const upload = require("../helpers/cloudynary");
+const {OAuth2Client} = require('google-auth-library');
+const { generateToken } = require("../helpers/jwt");
+
 
 exports.register = async (req, res, next) => {
   const { username, email, password, imgUrl } = req.body;
@@ -104,3 +106,31 @@ exports.updateUser = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.googleLogin = async (req, res, next) => {
+  const client = new OAuth2Client();
+  const { googleToken } = req.body;
+  try {
+    
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.G_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const [user, created] = await User.findOrCreate({
+        where: { email: payload.email },
+        defaults: {
+          username: payload.name,
+          email: payload.email,
+          password: 'password-google',
+          imgUrl: payload.picture
+        },
+        hooks: false,
+      });
+      const access_token = generateToken({ id: user.id });
+      res.status(200).json({ access_token: access_token });
+    } catch (err) {
+      console.log(err, "<<< err googleLogin");
+      next(err);
+    }
+  }
