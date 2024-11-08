@@ -14,10 +14,10 @@ import {
 } from "@nextui-org/react";
 import { AcmeLogo } from "./helpers/AcmeLogo";
 import { useEffect, useState } from "react";
-import { pull } from "@/utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
+import { pull } from "../utils/axios";
 
 export default function App() {
   const [user, setUser] = useState(null);

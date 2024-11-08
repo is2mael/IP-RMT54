@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { pull } from "@/utils/axios";
-import GeminiAi from "@/components/Gemini AI";
+import { pull } from "../utils/axios";
+import GeminiAi from "../components/Gemini AI";
 
 export default function Home() {
   const [photos, setPhotos] = useState([]);

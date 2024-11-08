@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchIlgrams, removeFav } from "@/features/ilGram";
+import { fetchIlgrams, removeFav } from "../features/ilGram";
 
 export default function Favorite() {
   const ilgrams = useSelector((state) => state.ilgrams.value);

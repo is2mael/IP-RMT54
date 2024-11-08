@@ -1,5 +1,5 @@
-import { pull } from '@/utils/axios';
 import { createSlice } from '@reduxjs/toolkit';
+import { pull } from '../utils/axios';
 
 export const ilgramsSlice = createSlice({
   name: 'ilgrams',
