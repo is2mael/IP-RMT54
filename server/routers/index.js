@@ -8,10 +8,6 @@ const upload = multer({ storage: storage })
 
 const router = require("express").Router()
 
-router.get("/", (req, res) => {
-    res.send("Hallo Guys")
-})
-
 router.post("/register", register)
 router.post("/login", Login)
 router.post("/google-login", googleLogin);
