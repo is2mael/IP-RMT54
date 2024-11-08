@@ -3,11 +3,13 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { pull } from "@/utils/axios";
+import GeminiAi from "@/components/Gemini AI";
 
 export default function Home() {
   const [photos, setPhotos] = useState([]);
-  const [page, setPage] = useState(1); // Untuk melacak halaman saat ini
-  const [loading, setLoading] = useState(false); // Status loading
+  const [page, setPage] = useState(1); 
+  const [loading, setLoading] = useState(false);
+  const [showGeminiAi, setShowGeminiAi] = useState(false) 
   const nav = useNavigate();
   const { id } = useParams()
   
@@ -111,6 +113,18 @@ export default function Home() {
       {loading && (
         <div className="text-center my-4">
           <p>Loading...</p>
+        </div>
+      )}
+       <button
+        onClick={() => setShowGeminiAi(true)}
+        className="fixed bottom-0 left-1/2 transform -translate-x-1/2 p-4 bg-orange-600 text-white rounded-full mb-3"
+      >
+        Ask Gemini
+      </button>
+
+      {showGeminiAi && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+          <GeminiAi onClose={() => setShowGeminiAi(false)} />
         </div>
       )}
     </div>

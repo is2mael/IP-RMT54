@@ -1,7 +1,6 @@
 import "./index.css";
 import { createRoot } from "react-dom/client";
 import { NextUIProvider } from "@nextui-org/react";
-
 import {
   createBrowserRouter,
   Outlet,
@@ -13,6 +12,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import NavbarP from "./components/Navbar";
 import Favorite from "./pages/Favorite";
+import store from './features'
+import { Provider } from 'react-redux'
 
 const isNotLogin = async () => {
   const access_token = localStorage.getItem("access_token");
@@ -77,9 +78,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <>
     <NextUIProvider />
-    <main className="dark text-foreground bg-background min-h-screen">
-      <RouterProvider router={router} />
-    </main>
+      <main className="dark text-foreground bg-background min-h-screen">
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </main>
     <NextUIProvider />
   </>
 );

@@ -4,12 +4,10 @@ import Swal from "sweetalert2";
 import { pull } from "../utils/axios";
 
 export default function Register() {
-  const [username, setUsername] = useState("fufufafa");
-  const [email, setEmail] = useState("fufufafa@wowo.com");
-  const [password, setPassword] = useState("pelantikan");
-  const [imgUrl, setImgUrl] = useState(
-    "https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg"
-  );
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const nav = useNavigate();
 
   const handleRegister = async (e) => {

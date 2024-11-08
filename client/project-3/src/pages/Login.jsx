@@ -4,8 +4,8 @@ import { pull } from "../utils/axios";
 import Swal from "sweetalert2";
 
 export default function Login() {
-  const [email, setEmail] = useState("fufufafa@wowo.com");
-  const [password, setPassword] = useState("pelantikan");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const nav = useNavigate();
 
   const handleLogin = async (e) => {
@@ -34,7 +34,7 @@ export default function Login() {
       console.log(error.response.data);
       Swal.fire({
         title: `Error ${error.response.data.statusCode}!`,
-        text: error.response.data.error,
+        text: error.response.data.message,
         icon: "error",
         confirmButtonText: "Oke",
       });
