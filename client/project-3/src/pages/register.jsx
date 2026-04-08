@@ -35,7 +35,7 @@ export default function Register() {
         icon: "success",
       });
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       Swal.fire({
         title: `Error ${error.response.data.message}!`,
         text: error.response.data.error,

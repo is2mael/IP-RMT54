@@ -24,7 +24,7 @@ export default function Login() {
       localStorage.setItem("access_token", response.data.access_token);
       console.log(response.data);
 
-      nav("/home");
+      nav("/");
       Swal.fire({
         title: "Kamu Berhasil Login!",
         text: "You clicked the button!",
@@ -61,7 +61,7 @@ export default function Login() {
         text: "Login Success!",
         icon: "success",
       });
-      nav("/home");
+      nav("/");
     } catch (err) {
       console.log(err, "<<< err google login");
       Swal.fire({

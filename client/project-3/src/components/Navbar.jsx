@@ -107,7 +107,7 @@ export default function App() {
 
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
-            <Link color="foreground" to="/home" >
+            <Link color="foreground" to="/" >
               Explore
             </Link>
           </NavbarItem>

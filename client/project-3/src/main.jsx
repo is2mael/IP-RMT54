@@ -27,7 +27,7 @@ const isNotLogin = async () => {
 const isLogin = async () => {
   const access_token = localStorage.getItem("access_token");
   if (access_token) {
-    throw redirect("/home");
+    throw redirect("/");
   } else {
     return null;
   }
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     loader: isNotLogin,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home />,
       },
       {
